@@ -1,11 +1,8 @@
-# Utilise l'image officielle de Prometheus
-FROM prom/prometheus:v2.44.0
+# Utiliser l'image officielle de VictoriaMetrics
+FROM victoriametrics/victoria-metrics:latest
 
-# Copie le fichier de configuration
-COPY config/prometheus.yml /etc/prometheus/prometheus.yml
-
-# Expose le port 9090
-EXPOSE 9090
+# Exposer le port par défaut
+EXPOSE 8428
 
 # Commande de lancement
-CMD ["--config.file=/etc/prometheus/prometheus.yml"]
+CMD ["/victoria-metrics-prod", "-retentionPeriod=1", "-storageDataPath=/storage"]
